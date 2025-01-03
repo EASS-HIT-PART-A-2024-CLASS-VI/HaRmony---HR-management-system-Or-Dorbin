@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:13
@@ -14,6 +12,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - harmony_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d harmony_db -U harmony_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -21,11 +24,12 @@ services:
       dockerfile: Dockerfile
     container_name: harmony-backend
     environment:
-      DATABASE_URL: postgres://harmony_user:password@db:5432/harmony_db
+      DATABASE_URL: postgresql://harmony_user:password@db:5432/harmony_db
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - harmony_network
 
@@ -46,4 +50,3 @@ volumes:
 
 networks:
   harmony_network:
-
