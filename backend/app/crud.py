@@ -1,7 +1,13 @@
 from sqlalchemy.orm import Session
 from app.models import User, PotentialRecruit
 from app.schemas import UserCreate, PotentialRecruitCreate, PotentialRecruitUpdate
+from datetime import date
 from datetime import datetime
+import random
+from app.models import Employee
+from app.models import Event
+from app.schemas import EventCreate
+
 
 # Function to create a new user
 def create_user(db: Session, user: UserCreate):
@@ -60,3 +66,20 @@ def delete_potential_recruit(db: Session, recruit_id: int):
         db.commit()
     return recruit
 
+def draw_employees(db: Session, department: str, num_employees: int):
+    employees = db.query(Employee).filter(Employee.department == department).all()
+    if len(employees) < num_employees:
+        raise ValueError("Not enough employees in the selected department.")
+    return random.sample(employees, num_employees)
+
+def create_event(db: Session, event: EventCreate):
+    db_event = Event(**event.dict())
+    db.add(db_event)
+    db.commit()
+    db.refresh(db_event)
+    return db_event
+
+
+def get_upcoming_events(db: Session):
+    today = date.today()
+    return db.query(Event).filter(Event.date >= today).order_by(Event.date).all()

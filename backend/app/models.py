@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Date, Text
+from sqlalchemy import Column, Integer, String, Date, Text, ForeignKey
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 class User(Base):
@@ -26,3 +27,23 @@ class PotentialRecruit(Base):
     age = Column(Integer, nullable=False)
     role_description = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
+
+class Employee(Base):
+    __tablename__ = "employees"
+    id = Column(Integer, primary_key=True, index=True)
+    full_name = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
+    phone_number = Column(String, nullable=True)
+    department = Column(String, index=True)
+    role = Column(String, nullable=True)
+    date_of_birth = Column(Date, nullable=True)
+    age = Column(Integer, nullable=True)
+
+
+class Event(Base):
+    __tablename__ = "events"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    date = Column(Date, nullable=False)
+    location = Column(String, nullable=True)
+    organizer = Column(String, nullable=True)

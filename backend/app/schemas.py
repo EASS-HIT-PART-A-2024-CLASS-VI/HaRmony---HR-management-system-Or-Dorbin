@@ -22,9 +22,39 @@ class UserLogin(BaseModel):
     password: str
 
 
+class EmployeeBase(BaseModel):
+    full_name: str
+    email: str
+    phone_number: str | None = None
+    department: str
+    role: str | None = None
+    date_of_birth: date | None = None
+    age: int | None = None
+
+class EmployeeCreate(EmployeeBase):
+    pass
+
+class Employee(EmployeeBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+class EventBase(BaseModel):
+    name: str
+    date: date
+    location: str | None = None
+    organizer: str | None = None
+
+class EventCreate(EventBase):
+    pass
+
+class Event(EventBase):
+    id: int
+
+
     class Config:
          from_attributes = True
-
 
 
 class PotentialRecruitBase(BaseModel):
