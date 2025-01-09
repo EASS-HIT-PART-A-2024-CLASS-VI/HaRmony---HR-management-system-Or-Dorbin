@@ -1,10 +1,16 @@
+
 # HaRmony
 **Human Resources Management Interface System**
 
 <img width="929" alt="image" src="https://github.com/user-attachments/assets/5411c39b-809f-4199-933d-ff3e88f84ba0" />
+---
 
 ## Overview
-HaRmony is a comprehensive web-based Human Resources management system. It provides tools for managing employee data, potential recruits, company events, and team-building activities. The project includes a backend developed with FastAPI and a frontend using Streamlit, fully containerized for deployment with Docker.
+HaRmony is a comprehensive web-based Human Resources management system. It provides tools for managing employee data, potential recruits, company events, and team-building activities. The project includes three main services:
+
+1. **Backend:** Built with FastAPI to handle all server-side logic and database interactions.
+2. **Frontend:** Developed with Streamlit for a user-friendly interface.
+3. **Database:** PostgreSQL to store and manage all the HR-related data.
 
 ---
 
@@ -20,6 +26,7 @@ HaRmony is a comprehensive web-based Human Resources management system. It provi
 ---
 
 ## Technologies Used
+
 ### Backend:
 - **Python 3.10+**
 - **FastAPI** – A modern and fast web framework for building APIs.
@@ -28,26 +35,32 @@ HaRmony is a comprehensive web-based Human Resources management system. It provi
 - **CORS Middleware** – To enable frontend-backend communication.
 
 ### Frontend:
-- **Streamlit** – A Python-based web application framework for a user-friendly interface.
+- **Streamlit** – A Python-based web application framework for an interactive interface.
+
+### Database:
+- **PostgreSQL** – A powerful open-source relational database.
 
 ### Containerization:
-- **Docker** – For creating isolated containers for the backend and frontend.
+- **Docker** – For creating isolated containers for the backend, frontend, and database.
 - **Docker Compose** – To orchestrate multi-container services.
 
 ---
 
 ## Project Features
+
 ### Backend:
-- Management of potential recruits with CRUD operations.
-- Tracking and management of team-building events.
-- Employee data management, including department-wise filtering and birthday celebrations.
-- Supports authentication and user roles for secure access.
+- User authentication and secure access.
+- CRUD operations for potential recruits and employees.
+- Management of team-building events and "Happy Hour" celebrations.
 
 ### Frontend:
-- Interactive UI for HR tasks.
-- Display and search functionalities for employees and events.
-- Calendar-based views for team-building events.
-- Confetti effects for "Happy Hour" celebrations.
+- Interactive and user-friendly interface for HR management.
+- Search and filter functionalities for employees and events.
+- Calendar-based views for team-building activities.
+
+### Database:
+- Stores all user, employee, recruit, and event data.
+- Manages relationships between users, events, and approved locations.
 
 ---
 
@@ -77,6 +90,9 @@ HaRmony/
 │   ├── Dockerfile               # Frontend container configuration
 ├── docker-compose.yml           # Multi-container orchestration
 └── README.md                    # Project documentation
+```
+
+---
 
 ## Endpoints (Backend)
 
@@ -108,28 +124,30 @@ HaRmony/
    ```bash
    git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-VI/HaRmony---HR-management-system-Or-Dorbin.git
    cd HaRmony
+   ```
+
 2. **Build and Run Containers:**
    ```bash
    docker-compose up --build
+   ```
+   - Backend available at: [http://localhost:8000](http://localhost:8000)
+   - Frontend available at: [http://localhost:8501](http://localhost:8501)
 
-Backend available at: http://localhost:8000
-Frontend available at: http://localhost:8501
+3. **Use the Application:**
+   - Access the frontend at [http://localhost:8501](http://localhost:8501) and explore HR features.
 
-**Use the Application:**
+---
 
-Access the frontend at http://localhost:8501 and explore HR features.
-
---
 ## Future Work
+
 1. Implement advanced analytics for employee performance and recruit tracking.
-2. Add roles to the frontend.
+2. Add roles and authentication features to the frontend.
 3. Integrate real-time notifications for event updates.
---
 
-## Contect Info:
+---
 
-**Project Author:** Or Dorbin
-**Email:** ordorbin13@gmail.com
-**GitHub:** OrDorbin
+## Contact Info
 
-
+- **Project Author:** Or Dorbin  
+- **Email:** ordorbin13@gmail.com  
+- **GitHub:** [Or Dorbin](https://github.com/Ordorbin)
