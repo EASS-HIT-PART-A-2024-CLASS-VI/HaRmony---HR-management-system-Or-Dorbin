@@ -1,3 +1,4 @@
+from app import models
 from sqlalchemy.orm import Session
 from app.models import User, PotentialRecruit
 from app.schemas import UserCreate, PotentialRecruitCreate, PotentialRecruitUpdate
@@ -7,7 +8,7 @@ import random
 from app.models import Employee
 from app.models import Event
 from app.schemas import EventCreate
-
+from sqlalchemy import func
 
 # Function to create a new user
 def create_user(db: Session, user: UserCreate):
@@ -83,3 +84,29 @@ def create_event(db: Session, event: EventCreate):
 def get_upcoming_events(db: Session):
     today = date.today()
     return db.query(Event).filter(Event.date >= today).order_by(Event.date).all()
+
+
+    
+def search_employees(db: Session, name: str):
+    return db.query(Employee).filter(Employee.full_name.ilike(f"%{name}%")).all()
+
+def get_employees_by_department(db: Session):
+    employees = db.query(Employee).all()
+    return employees
+
+
+def get_employee(db: Session, employee_id: int):
+    return db.query(Employee).filter(Employee.id == employee_id).first()
+
+
+def get_employees_with_birthdays(db: Session, month: int):
+    return db.query(Employee).filter(func.extract('month', Employee.date_of_birth) == month).all()
+
+def update_employee_image(db: Session, employee_id: int, image_url: str):
+    employee = db.query(models.Employee).filter(models.Employee.id == employee_id).first()
+    if employee:
+        employee.image_url = image_url
+        db.commit()
+        db.refresh(employee)
+    return employee
+

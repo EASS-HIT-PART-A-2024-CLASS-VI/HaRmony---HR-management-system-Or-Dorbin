@@ -25,11 +25,12 @@ class UserLogin(BaseModel):
 class EmployeeBase(BaseModel):
     full_name: str
     email: str
-    phone_number: str | None = None
+    phone_number: Optional[str] = None
     department: str
     role: str | None = None
     date_of_birth: date | None = None
     age: int | None = None
+    image_url: Optional[str]
 
 class EmployeeCreate(EmployeeBase):
     pass
@@ -88,5 +89,4 @@ class PotentialRecruit(PotentialRecruitBase):
     """
     id: int
 
-    class Config:
-        orm_mode = True
+

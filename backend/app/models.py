@@ -38,6 +38,7 @@ class Employee(Base):
     role = Column(String, nullable=True)
     date_of_birth = Column(Date, nullable=True)
     age = Column(Integer, nullable=True)
+    image_url = Column(String, nullable=True)  
 
 
 class Event(Base):
