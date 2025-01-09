@@ -1,7 +1,7 @@
-from app import models
+from app import models, schemas
 from sqlalchemy.orm import Session
 from app.models import User, PotentialRecruit
-from app.schemas import UserCreate, PotentialRecruitCreate, PotentialRecruitUpdate
+from app.schemas import UserCreate, PotentialRecruitCreate, PotentialRecruitUpdate, ApprovedPlaceCreate
 from datetime import date
 from datetime import datetime
 import random
@@ -110,3 +110,30 @@ def update_employee_image(db: Session, employee_id: int, image_url: str):
         db.refresh(employee)
     return employee
 
+
+def create_formation_event(db: Session, event: schemas.FormationEventCreate):
+    db_event = models.FormationEvent(**event.dict())
+    db.add(db_event)
+    db.commit()
+    db.refresh(db_event)
+    return db_event
+
+def get_upcoming_formation_events(db: Session):
+    today = date.today()
+    return db.query(models.FormationEvent).filter(models.FormationEvent.date >= today).order_by(models.FormationEvent.date).all()
+
+
+def get_past_formation_events(db: Session):
+    today = date.today()
+    return db.query(models.FormationEvent).filter(models.FormationEvent.date < today).order_by(models.FormationEvent.date.desc()).all()
+
+
+def create_approved_place(db: Session, place: ApprovedPlaceCreate):
+    db_place = models.ApprovedPlace(**place.dict())
+    db.add(db_place)
+    db.commit()
+    db.refresh(db_place)
+    return db_place
+
+def get_approved_places(db: Session):
+    return db.query(models.ApprovedPlace).all()

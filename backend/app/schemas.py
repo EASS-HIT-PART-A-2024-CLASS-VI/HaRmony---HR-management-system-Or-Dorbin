@@ -90,3 +90,29 @@ class PotentialRecruit(PotentialRecruitBase):
     id: int
 
 
+class ApprovedPlaceBase(BaseModel):
+    name: str
+    location: str
+    description: Optional[str] = None
+    website_url: Optional[str] = None
+
+class ApprovedPlaceCreate(ApprovedPlaceBase):
+    pass
+
+class ApprovedPlace(ApprovedPlaceBase):
+    id: int
+
+class FormationEventBase(BaseModel):
+    name: str
+    date: date
+    location: Optional[str] = None
+    organizer: Optional[str] = None
+    description: Optional[str] = None
+    type: str = "Formation"
+    images: Optional[str] = None
+
+class FormationEventCreate(FormationEventBase):
+    pass
+
+class FormationEvent(FormationEventBase):
+    id: int

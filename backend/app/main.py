@@ -8,7 +8,7 @@ from app.routes.login import router as login_router
 from app.routes import potential_recruits
 from app.routes import happy_hour
 from app.routes import employees
-
+from app.routes import formation_events
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -23,6 +23,7 @@ app.include_router(potential_recruits.router, prefix="/potential_recruits", tags
 app.include_router(happy_hour.router, prefix="/happy_hour", tags=["Happy Hour"])
 app.include_router(employees.router, prefix="/Employees", tags=["Employees"])
 app.mount("/employees_pictures", StaticFiles(directory="uploads/employees_pictures"), name="employees_pictures")
+app.include_router(formation_events.router, prefix="/formation_events", tags=["Formation Events"])
 # Dependency to get database session
 def get_db():
     db = SessionLocal()

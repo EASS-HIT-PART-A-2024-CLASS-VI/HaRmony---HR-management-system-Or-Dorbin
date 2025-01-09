@@ -48,3 +48,24 @@ class Event(Base):
     date = Column(Date, nullable=False)
     location = Column(String, nullable=True)
     organizer = Column(String, nullable=True)
+
+class ApprovedPlace(Base):
+    __tablename__ = "approved_places"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    location = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    website_url = Column(String, nullable=True)
+
+class FormationEvent(Base):
+    __tablename__ = "formation_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    date = Column(Date, nullable=False)
+    location = Column(String, nullable=True)
+    organizer = Column(String, nullable=True)
+    description = Column(Text, nullable=True)
+    type = Column(String, nullable=False, default="Formation")  # New field for filtering event type
+    images = Column(Text, nullable=True)  # Store image URLs as a comma-separated string
