@@ -1,48 +1,58 @@
+# HaRmony
+**Human Resources Management Interface System**
 
 <img width="929" alt="image" src="https://github.com/user-attachments/assets/5411c39b-809f-4199-933d-ff3e88f84ba0" />
 
-
-
-HaRmony
-Human Resources Management Interface System
-
-Overview
+## Overview
 HaRmony is a comprehensive web-based Human Resources management system. It provides tools for managing employee data, potential recruits, company events, and team-building activities. The project includes a backend developed with FastAPI and a frontend using Streamlit, fully containerized for deployment with Docker.
 
-Table of Contents
-Technologies Used
-Project Features
-Project Structure
-Endpoints (Backend)
-How to Run the Project
-Future Work
-Contact Info
-Technologies Used
-Backend:
-Python 3.10+
-FastAPI – A modern and fast web framework for building APIs.
-SQLAlchemy – ORM for database management.
-PostgreSQL – Relational database.
-CORS Middleware – To enable frontend-backend communication.
-Frontend:
-Streamlit – A Python-based web application framework for a user-friendly interface.
-Containerization:
-Docker – For creating isolated containers for the backend and frontend.
-Docker Compose – To orchestrate multi-container services.
-Project Features
-Backend:
-Management of potential recruits with CRUD operations.
-Tracking and management of team-building events.
-Employee data management, including department-wise filtering and birthday celebrations.
-Supports authentication and user roles for secure access.
-Frontend:
-Interactive UI for HR tasks.
-Display and search functionalities for employees and events.
-Calendar-based views for team-building events.
-Confetti effects for "Happy Hour" celebrations.
-Project Structure
-graphql
-Copy code
+---
+
+## Table of Contents
+1. [Technologies Used](#technologies-used)
+2. [Project Features](#project-features)
+3. [Project Structure](#project-structure)
+4. [Endpoints (Backend)](#endpoints-backend)
+5. [How to Run the Project](#how-to-run-the-project)
+6. [Future Work](#future-work)
+7. [Contact Info](#contact-info)
+
+---
+
+## Technologies Used
+### Backend:
+- **Python 3.10+**
+- **FastAPI** – A modern and fast web framework for building APIs.
+- **SQLAlchemy** – ORM for database management.
+- **PostgreSQL** – Relational database.
+- **CORS Middleware** – To enable frontend-backend communication.
+
+### Frontend:
+- **Streamlit** – A Python-based web application framework for a user-friendly interface.
+
+### Containerization:
+- **Docker** – For creating isolated containers for the backend and frontend.
+- **Docker Compose** – To orchestrate multi-container services.
+
+---
+
+## Project Features
+### Backend:
+- Management of potential recruits with CRUD operations.
+- Tracking and management of team-building events.
+- Employee data management, including department-wise filtering and birthday celebrations.
+- Supports authentication and user roles for secure access.
+
+### Frontend:
+- Interactive UI for HR tasks.
+- Display and search functionalities for employees and events.
+- Calendar-based views for team-building events.
+- Confetti effects for "Happy Hour" celebrations.
+
+---
+
+## Project Structure
+```plaintext
 HaRmony/
 ├── backend/
 │   ├── app/
@@ -67,49 +77,59 @@ HaRmony/
 │   ├── Dockerfile               # Frontend container configuration
 ├── docker-compose.yml           # Multi-container orchestration
 └── README.md                    # Project documentation
-Endpoints (Backend)
-Formation Events:
-GET /formation_events/upcoming/
-Returns a list of upcoming team-building events.
 
-GET /formation_events/past/
-Returns a list of past team-building events.
+## Endpoints (Backend)
 
-POST /formation_events/create_event/
-Allows creating a new team-building event.
+### Formation Events:
+- **`GET /formation_events/upcoming/`**  
+  Returns a list of upcoming team-building events.
 
-GET /formation_events/approved_places/
-Returns a list of approved places for team-building events.
+- **`GET /formation_events/past/`**  
+  Returns a list of past team-building events.
 
-POST /formation_events/create_place/
-Allows adding a new approved place.
+- **`POST /formation_events/create_event/`**  
+  Allows creating a new team-building event.
 
-How to Run the Project
-Prerequisites:
-Docker and Docker Compose installed.
-Steps:
-Clone the Repository:
+- **`GET /formation_events/approved_places/`**  
+  Returns a list of approved places for team-building events.
 
-bash
-Copy code
-git clone https://github.com/your-repo-link.git
-cd HaRmony
-Build and Run Containers:
+- **`POST /formation_events/create_place/`**  
+  Allows adding a new approved place.
 
-bash
-Copy code
-docker-compose up --build
+---
+
+## How to Run the Project
+
+### Prerequisites:
+- Docker and Docker Compose installed.
+
+### Steps:
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-VI/HaRmony---HR-management-system-Or-Dorbin.git
+   cd HaRmony
+2. **Build and Run Containers:**
+   ```bash
+   docker-compose up --build
+
 Backend available at: http://localhost:8000
 Frontend available at: http://localhost:8501
-Use the Application:
+
+**Use the Application:**
 
 Access the frontend at http://localhost:8501 and explore HR features.
-Future Work
-Implement advanced analytics for employee performance and recruit tracking.
-Add user authentication and roles to the frontend.
-Integrate real-time notifications for event updates.
-Contact Info
-Project Author: Or Dorbin
-Email: ordorbin13@gmail.com
-GitHub: Or Dorbin
+
+--
+## Future Work
+1. Implement advanced analytics for employee performance and recruit tracking.
+2. Add roles to the frontend.
+3. Integrate real-time notifications for event updates.
+--
+
+## Contect Info:
+
+**Project Author:** Or Dorbin
+**Email:** ordorbin13@gmail.com
+**GitHub:** OrDorbin
+
 
