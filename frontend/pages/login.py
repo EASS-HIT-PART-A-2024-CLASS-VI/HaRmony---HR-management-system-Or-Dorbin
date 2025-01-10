@@ -1,8 +1,7 @@
 import requests
 import streamlit as st
 
-
-st.set_page_config(page_title="HaRmony", layout="centered")
+st.set_page_config(page_title="HaRmony", layout="wide", initial_sidebar_state="collapsed")
 st.markdown("<h1 style='text-align: center; color: navy;'>HaRmony</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>log in to your account</h3>", unsafe_allow_html=True)
 
@@ -16,7 +15,7 @@ if st.button("Register"):
 if st.button("Login"):
     try:
         response = requests.post(
-            "http://backend:8000/login/",  # backend service
+            "http://backend:8000/auth/login/",  # backend service
             json={"username": username, "password": password},
         )
         if response.status_code == 200:
