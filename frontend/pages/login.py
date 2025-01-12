@@ -2,8 +2,16 @@ import requests
 import streamlit as st
 
 st.set_page_config(page_title="HaRmony", layout="wide", initial_sidebar_state="collapsed")
-st.markdown("<h1 style='text-align: center; color: navy;'>HaRmony</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center;'>log in to your account</h3>", unsafe_allow_html=True)
+# Logo and subheading
+st.markdown(
+    """
+    <div style='text-align: center;'>
+        <img src="http://localhost:8000/assets/HaRmonyLogo.png" alt="HaRmony Logo" width="200"/>
+        <h3 style='font-family: Calibri;'>log in to your account</h3>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # enter user details
 username = st.text_input("enter username", key="username")
@@ -19,7 +27,11 @@ if st.button("Login"):
             json={"username": username, "password": password},
         )
         if response.status_code == 200:
-            st.success(f"Welcome, {username}!")
+           st.success(f"Welcome, {username}!")
+            # Save logged-in user info in session state
+           st.session_state["logged_in_user"] = username
+           st.write(f"[Redirecting to Potential Recruits page...](http://localhost:8501/potential_recruits)")
+
         elif response.status_code == 400:
             st.error("Invalid username or password. Please try again.")
         elif response.status_code == 404:
@@ -29,3 +41,7 @@ if st.button("Login"):
     except requests.exceptions.ConnectionError:
         st.error("Unable to connect to the backend. Please check the backend service.")
 
+# Check if redirection is required
+if "redirect_to" in st.session_state and st.session_state["redirect_to"] == "potential_recruits":
+    st.write("[Redirecting to Potential Recruits page...](http://localhost:8501/potential_recruits)")
+    st.stop()

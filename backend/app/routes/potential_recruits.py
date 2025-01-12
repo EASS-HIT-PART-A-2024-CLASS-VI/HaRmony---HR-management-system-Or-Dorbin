@@ -24,6 +24,8 @@ def search_recruits(keyword: str, db: Session = Depends(get_db)):
     """
     Endpoint to search recruits by keyword.
     """
+    if not keyword:
+        raise HTTPException(status_code=400, detail="Keyword is required.")
     return crud.search_potential_recruits(db, keyword)
 
 @router.delete("/{recruit_id}", response_model=schemas.PotentialRecruit)

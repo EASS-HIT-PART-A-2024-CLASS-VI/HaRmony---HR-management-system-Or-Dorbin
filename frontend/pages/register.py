@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="HaRmony - Registration", layout="centered")
+st.set_page_config(page_title="HaRmony - Registration", layout="centered", initial_sidebar_state="collapsed")
 
 # Display logo
 st.image("assets/HaRmonyLogo.png", width=200)

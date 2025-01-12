@@ -9,13 +9,13 @@ from app.routes import potential_recruits
 from app.routes import happy_hour
 from app.routes import employees
 from app.routes import formation_events
-
+import os
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI application
 app = FastAPI()
-
+assets_path = "/app/frontend/assets"
 # Include routers
 app.include_router(login_router, prefix="/auth", tags=["authentication"])
 app.include_router(register_router, prefix="/auth", tags=["authentication"])
@@ -24,6 +24,12 @@ app.include_router(happy_hour.router, prefix="/happy_hour", tags=["Happy Hour"])
 app.include_router(employees.router, prefix="/Employees", tags=["Employees"])
 app.mount("/employees_pictures", StaticFiles(directory="uploads/employees_pictures"), name="employees_pictures")
 app.include_router(formation_events.router, prefix="/formation_events", tags=["Formation Events"])
+if os.path.exists(assets_path):
+    app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+else:
+    raise RuntimeError(f"Assets directory not found at {assets_path}")
+
+
 # Dependency to get database session
 def get_db():
     db = SessionLocal()
