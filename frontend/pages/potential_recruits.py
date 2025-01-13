@@ -38,45 +38,36 @@ st.markdown(
 st.markdown(
     """
     <style>
-/* Add Recruit Button */
-.add-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: green;
-    color: white;
-    border: 2px solid green;
-    border-radius: 10%;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: Calibri, sans-serif;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-.add-button:hover {
-    background-color: darkgreen;
-}
 
-/* Delete Recruit Button */
-.delete-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: red;
-    color: white;
-    border: 2px solid red;
-    border-radius: 10%;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: Calibri, sans-serif;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-.delete-button:hover {
-    background-color: darkred;
-}
+ /* Add Recruit Form - Green */
+    .add-recruit input[type="text"], .add-recruit input[type="number"], .add-recruit textarea, .add-recruit .stDateInput input {
+        border: 2px solid #4CAF50; /* Green border */
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .add-recruit input[type="text"]:hover, .add-recruit input[type="number"]:hover, .add-recruit textarea:hover, .add-recruit .stDateInput input:hover {
+        border-color: #45a049; /* Darker green on hover */
+    }
+    .add-recruit input[type="text"]:focus, .add-recruit input[type="number"]:focus, .add-recruit textarea:focus, .add-recruit .stDateInput input:focus {
+        outline: none;
+        box-shadow: 0 0 5px #45a049; /* Glow effect */
+        border-color: #45a049;
+    }
+
+    /* Delete Recruit Form - Red */
+    .delete-recruit input[type="text"], .delete-recruit input[type="number"], .delete-recruit textarea, .delete-recruit .stDateInput input {
+        border: 2px solid #FF5733; /* Red border */
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .delete-recruit input[type="text"]:hover, .delete-recruit input[type="number"]:hover, .delete-recruit textarea:hover, .delete-recruit .stDateInput input:hover {
+        border-color: #E74C3C; /* Darker red on hover */
+    }
+    .delete-recruit input[type="text"]:focus, .delete-recruit input[type="number"]:focus, .delete-recruit textarea:focus, .delete-recruit .stDateInput input:focus {
+        outline: none;
+        box-shadow: 0 0 5px #E74C3C; /* Glow effect */
+        border-color: #E74C3C;
+    }
     .stButton > button {
         background-color: #007bff;
         color: white;
@@ -129,9 +120,11 @@ else:
     response = requests.get("http://backend:8000/potential_recruits/")
     recruits = response.json() if response.status_code == 200 else []
 
-# Add Recruit Button
-if st.markdown('<button class="add-button">Add Recruit</button>', unsafe_allow_html=True):
-    with st.expander("Fill in recruit details to add", expanded=True):
+
+# Add Recruit Form
+with st.expander("✅ Add a new recruit", expanded=False):
+    with st.container():
+        st.markdown('<div class="add-recruit">', unsafe_allow_html=True)
         with st.form("add_recruit_form"):
             first_name = st.text_input("First Name")
             last_name = st.text_input("Last Name")
@@ -162,12 +155,14 @@ if st.markdown('<button class="add-button">Add Recruit</button>', unsafe_allow_h
                     st.rerun()
                 else:
                     st.error(f"Failed to add recruit: {response.text}")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# Delete Recruit Button
-if st.markdown('<button class="delete-button">Delete Recruit</button>', unsafe_allow_html=True):
-    with st.expander("Enter recruit ID to delete", expanded=True):
+# Delete Recruit Form
+with st.expander("❌ Delete a Recruit through ID", expanded=False):
+    with st.container():
+        st.markdown('<div class="delete-recruit">', unsafe_allow_html=True)
         recruit_id = st.text_input("Recruit ID")
-        if st.button("Confirm Delete"):
+        if st.button("Delete Recruit"):
             if recruit_id:
                 response = requests.delete(f"http://backend:8000/potential_recruits/{recruit_id}")
                 if response.status_code == 200:
@@ -177,6 +172,8 @@ if st.markdown('<button class="delete-button">Delete Recruit</button>', unsafe_a
                     st.error(f"Failed to delete recruit: {response.text}")
             else:
                 st.warning("Please enter a valid Recruit ID.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 # Display recruits
