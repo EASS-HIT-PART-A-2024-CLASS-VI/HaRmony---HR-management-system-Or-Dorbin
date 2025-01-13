@@ -39,11 +39,11 @@ def create_potential_recruit(db: Session, recruit: PotentialRecruitCreate):
     return db_recruit
 
 # Function to get all potential recruits
-def get_all_potential_recruits(db: Session, skip: int = 0, limit: int = 10):
+def get_all_potential_recruits(db: Session):
     """
     Retrieves all potential recruits from the database.
     """
-    return db.query(PotentialRecruit).offset(skip).limit(limit).all()
+    return db.query(PotentialRecruit).all()
 
 # Function to search potential recruits by keyword
 def search_potential_recruits(db: Session, keyword: str):

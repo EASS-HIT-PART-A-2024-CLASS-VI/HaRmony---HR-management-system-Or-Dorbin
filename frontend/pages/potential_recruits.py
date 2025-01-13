@@ -1,5 +1,7 @@
 import requests
 import streamlit as st
+import datetime
+
 
 # Set page configuration
 st.set_page_config(page_title="Potential Recruits", layout="wide", initial_sidebar_state="collapsed")
@@ -36,7 +38,45 @@ st.markdown(
 st.markdown(
     """
     <style>
-  
+/* Add Recruit Button */
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+    color: white;
+    border: 2px solid green;
+    border-radius: 10%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Calibri, sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.add-button:hover {
+    background-color: darkgreen;
+}
+
+/* Delete Recruit Button */
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+    border-radius: 10%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Calibri, sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.delete-button:hover {
+    background-color: darkred;
+}
     .stButton > button {
         background-color: #007bff;
         color: white;
@@ -89,6 +129,56 @@ else:
     response = requests.get("http://backend:8000/potential_recruits/")
     recruits = response.json() if response.status_code == 200 else []
 
+# Add Recruit Button
+if st.markdown('<button class="add-button">Add Recruit</button>', unsafe_allow_html=True):
+    with st.expander("Fill in recruit details to add", expanded=True):
+        with st.form("add_recruit_form"):
+            first_name = st.text_input("First Name")
+            last_name = st.text_input("Last Name")
+            phone_number = st.text_input("Phone Number")
+            email = st.text_input("Email")
+            date_of_birth = st.date_input(
+                "Date of Birth",
+                min_value=datetime.date(1900, 1, 1),
+                max_value=datetime.date.today(),
+            )
+            age = st.number_input("Age", min_value=18, max_value=100, step=1)
+            role_description = st.text_input("Role Description")
+            description = st.text_area("Description")
+            if st.form_submit_button("Add Recruit"):
+                payload = {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "phone_number": phone_number,
+                    "email": email,
+                    "date_of_birth": str(date_of_birth),
+                    "age": age,
+                    "role_description": role_description,
+                    "description": description,
+                }
+                response = requests.post("http://backend:8000/potential_recruits/", json=payload)
+                if response.status_code == 200:
+                    st.success("Recruit added successfully!")
+                    st.rerun()
+                else:
+                    st.error(f"Failed to add recruit: {response.text}")
+
+# Delete Recruit Button
+if st.markdown('<button class="delete-button">Delete Recruit</button>', unsafe_allow_html=True):
+    with st.expander("Enter recruit ID to delete", expanded=True):
+        recruit_id = st.text_input("Recruit ID")
+        if st.button("Confirm Delete"):
+            if recruit_id:
+                response = requests.delete(f"http://backend:8000/potential_recruits/{recruit_id}")
+                if response.status_code == 200:
+                    st.success("Recruit deleted successfully!")
+                    st.rerun()  # Refresh the page to update the list
+                else:
+                    st.error(f"Failed to delete recruit: {response.text}")
+            else:
+                st.warning("Please enter a valid Recruit ID.")
+
+
 # Display recruits
 st.markdown("---")
 if recruits:
@@ -100,6 +190,7 @@ if recruits:
                 <div class="recruit-card">
                     <img src="http://localhost:8000/assets/recruitsphotos/{index+1}.png" alt="Profile Picture">
                     <h3>{recruit['first_name']} {recruit['last_name']}, {recruit['age']}</h3>
+                    <p>ID: <small style="color: gray;">{recruit['id']}</small></p>
                     <p><i>{recruit['role_description']}</i></p>
                     <p>{recruit['description']}</p>
                 </div>

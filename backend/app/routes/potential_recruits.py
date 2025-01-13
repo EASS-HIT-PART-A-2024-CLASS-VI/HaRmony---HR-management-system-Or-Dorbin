@@ -13,11 +13,11 @@ def create_recruit(recruit: schemas.PotentialRecruitCreate, db: Session = Depend
     return crud.create_potential_recruit(db=db, recruit=recruit)
 
 @router.get("/", response_model=list[schemas.PotentialRecruit])
-def get_all_recruits(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def get_all_recruits(db: Session = Depends(get_db)):
     """
     Endpoint to retrieve all potential recruits.
     """
-    return crud.get_all_potential_recruits(db, skip=skip, limit=limit)
+    return crud.get_all_potential_recruits(db)
 
 @router.get("/search/", response_model=list[schemas.PotentialRecruit])
 def search_recruits(keyword: str, db: Session = Depends(get_db)):
