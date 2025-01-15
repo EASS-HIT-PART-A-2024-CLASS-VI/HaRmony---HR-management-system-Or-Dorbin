@@ -5,6 +5,7 @@ from app.database import get_db
 import shutil
 from pathlib import Path
 from typing import List
+from app.models import Employee
 
 UPLOAD_DIR = Path("uploads/employees_pictures/")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
@@ -26,7 +27,6 @@ def get_birthdays(month: int, db: Session = Depends(get_db)):
     return employees_with_birthdays
 
 
-
 @router.post("/upload-image/")
 def upload_employee_image(file: UploadFile = File(...)):
     file_path = UPLOAD_DIR / file.filename
@@ -41,3 +41,12 @@ def update_employee_image(employee_id: int, image_url: str, db: Session = Depend
     if not employee:
         raise HTTPException(status_code=404, detail="Employee not found")
     return crud.update_employee_image(db, employee_id, image_url)
+
+@router.get("/departments/")
+def get_departments(db: Session = Depends(get_db)):
+    try:
+        departments = db.query(Employee.department).distinct().all()
+        return [department[0] for department in departments if department[0]]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch departments: {str(e)}")
+

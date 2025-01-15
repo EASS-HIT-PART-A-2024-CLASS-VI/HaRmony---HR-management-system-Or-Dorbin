@@ -75,6 +75,7 @@ def draw_employees(db: Session, department: str, num_employees: int):
 
 def create_event(db: Session, event: EventCreate):
     db_event = Event(**event.dict())
+    print("Inserting Event into DB:", db_event)  # Debugging
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
