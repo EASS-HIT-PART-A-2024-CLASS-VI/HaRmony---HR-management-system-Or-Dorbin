@@ -6,6 +6,16 @@ import json
 # Set page configuration
 st.set_page_config(page_title="Formation Days", layout="wide", initial_sidebar_state="collapsed")
 
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;} 
+    footer {visibility: hidden;} 
+    header {visibility: hidden;} 
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
 # Retrieve logged-in user
 logged_in_user = st.session_state.get("logged_in_user", "USERNAME")
 
@@ -33,27 +43,97 @@ st.markdown(
 # Title under the navigation bar
 st.image("http://localhost:8000/assets/formationdaystitle.png", width=600)
 
-# Dashboard buttons on the page
-st.markdown("### Please select an option below to view details:")
-selected_section = st.radio(
-    "",
-    options=[
-        "View Approved Places",
-        "Create Approved Place",
-        "Create Formation Event",
-        "Get Past Formation Days",
-        "Get Upcoming Formation Event",
-    ],
-    index=0,
-    label_visibility="collapsed",
+
+# Styling buttons with CSS
+st.markdown(
+    """
+<style>
+.button-container {
+    display: flex; 
+    justify-content: space-evenly; 
+    flex-wrap: nowrap; 
+    width: 100%;
+    gap: 20px; 
+}
+
+button {
+    background-color: #a4c2db; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin: 5px;
+    flex: 1; 
+}
+
+button:hover {
+    background-color: #3333db; 
+    color: #ffffff;
+}
+
+button:hover p{
+    color: #ffffff;
+}
+
+button:focus {
+    outline: none;
+    color: white;
+    background-color: #a4c2db;
+    border: none;
+}
+
+button:focus p{
+    color: #ffffff;
+}
+</style>
+
+
+
+    """,
+    unsafe_allow_html=True,
 )
 
-# Colors for active and inactive buttons
-active_color = "#3333db"
-inactive_color = "#a4c2db"
+# Define options
+buttons = [
+    "View Approved Places",
+    "Create Approved Place",
+    "Create Formation Event",
+    "Get Past Formation Days",
+    "Get Upcoming Formation Event",
+]
 
-# Dynamically display sections based on the selected button
-if selected_section == "View Approved Places":
+
+# Create 5 columns for buttons
+col1, col2, col3, col4, col5 = st.columns(5)
+
+# Place buttons in columns
+with col1:
+    if st.button("View Approved Places"):
+        st.session_state["selected_button"] = "View Approved Places"
+
+with col2:
+    if st.button("Create Approved Place"):
+        st.session_state["selected_button"] = "Create Approved Place"
+
+with col3:
+    if st.button("Create Formation Event"):
+        st.session_state["selected_button"] = "Create Formation Event"
+
+with col4:
+    if st.button("Get Past Formation Days"):
+        st.session_state["selected_button"] = "Get Past Formation Days"
+
+with col5:
+    if st.button("Get Upcoming Formation Event"):
+        st.session_state["selected_button"] = "Get Upcoming Formation Event"
+
+# Display content for the selected button
+selected_button = st.session_state.get("selected_button")
+
+if selected_button == "View Approved Places":
     st.subheader("Approved Places")
     try:
         response = requests.get("http://backend:8000/formation_events/approved_places/")
@@ -76,7 +156,7 @@ if selected_section == "View Approved Places":
     except requests.exceptions.RequestException as e:
         st.error(f"Error fetching approved places: {str(e)}")
 
-elif selected_section == "Create Approved Place":
+elif selected_button == "Create Approved Place":
     st.subheader("Create a New Approved Place")
     with st.form("create_approved_place_form"):
         name = st.text_input("Name")
@@ -105,7 +185,7 @@ elif selected_section == "Create Approved Place":
             except requests.exceptions.RequestException as e:
                 st.error(f"Error creating place: {str(e)}")
 
-elif selected_section == "Create Formation Event":
+elif selected_button ==  "Create Formation Event":
     st.subheader("Create a New Formation Event")
     with st.form("create_formation_event_form"):
         name = st.text_input("Name")
@@ -140,7 +220,7 @@ elif selected_section == "Create Formation Event":
             except requests.exceptions.RequestException as e:
                 st.error(f"Error creating formation event: {str(e)}")
 
-elif selected_section == "Get Past Formation Days":
+elif selected_button ==  "Get Past Formation Days":
     st.subheader("Past Formation Days")
     try:
         response = requests.get("http://backend:8000/formation_events/past/")
@@ -164,13 +244,25 @@ elif selected_section == "Get Past Formation Days":
     except requests.exceptions.RequestException as e:
         st.error(f"Error fetching past formation days: {str(e)}")
 
-elif selected_section == "Get Upcoming Formation Event":
+elif selected_button == "Get Upcoming Formation Event":
     st.subheader("Upcoming Formation Events")
     try:
         response = requests.get("http://backend:8000/formation_events/upcoming/")
         if response.status_code == 200:
             upcoming_events = response.json()
-            st.json(upcoming_events)  # Temporary JSON display for upcoming events
+            for event in upcoming_events:
+                st.markdown(
+                    f"""
+                    <div style="background-color: #e4e2f6; border: 1px solid #040465; padding: 10px; margin-bottom: 10px;">
+                        <strong>Name:</strong> {event['name']}<br>
+                        <strong>Date:</strong> {event['date']}<br>
+                        <strong>Location:</strong> {event['location']}<br>
+                        <strong>Organizer:</strong> {event['organizer']}<br>
+                        <strong>Description:</strong> {event['description']}<br>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
         else:
             st.error("Failed to fetch upcoming formation events.")
     except requests.exceptions.RequestException as e:
