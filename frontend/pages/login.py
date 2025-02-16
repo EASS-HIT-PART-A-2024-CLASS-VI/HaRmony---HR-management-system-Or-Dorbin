@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 
-st.set_page_config(page_title="HaRmony", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="HaRmony",page_icon="🔐​", layout="wide", initial_sidebar_state="collapsed")
 # Logo and subheading
 st.markdown(
     """

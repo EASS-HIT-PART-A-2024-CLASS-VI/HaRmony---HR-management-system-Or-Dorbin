@@ -2,10 +2,11 @@ import streamlit as st
 import requests
 from datetime import datetime
 import streamlit.components.v1 as components
+from streamlit_extras.switch_page_button import switch_page
 import random
 
+st.set_page_config(page_title="Employees", page_icon="👥", layout="wide", initial_sidebar_state="collapsed")
 
-st.set_page_config(page_title="Employees", layout="wide", initial_sidebar_state="collapsed")
 
 def render_top_navbar(user):
     st.markdown(
@@ -33,6 +34,7 @@ def render_top_navbar(user):
         """,
         unsafe_allow_html=True,
     )
+
 
 
 def render_title_image():

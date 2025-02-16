@@ -4,7 +4,7 @@ import datetime
 
 
 # Set page configuration
-st.set_page_config(page_title="Potential Recruits", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Potential Recruits",page_icon="🗣️​", layout="wide", initial_sidebar_state="collapsed")
 
 
 # Check if the user is logged in

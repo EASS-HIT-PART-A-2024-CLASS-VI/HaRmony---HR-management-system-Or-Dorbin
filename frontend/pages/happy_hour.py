@@ -2,10 +2,20 @@ import requests
 import streamlit as st
 from datetime import date, datetime
 import json
+from streamlit_extras.let_it_rain import rain
+
 
 # Set page configuration
-st.set_page_config(page_title="Happy Hour", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Happy Hour", page_icon="🥂", layout="wide", initial_sidebar_state="collapsed")
 
+if "rain_shown" not in st.session_state:
+    rain(
+        emoji="🍷🥂",  
+        font_size=70,  
+        falling_speed=7,  
+        animation_length=3,  
+    )
+    st.session_state.rain_shown = True
 # Retrieve logged-in user
 logged_in_user = st.session_state.get("logged_in_user", "USERNAME")
 
@@ -85,7 +95,7 @@ with col1:
     """)
 
     with st.form("draw_employees_form"):
-        num_employees = st.selectbox("Select number of employees", list(range(2, 11)))
+        num_employees = st.slider("Select number of employees", min_value=2, max_value=10, value=5)
         with st.spinner("Loading departments..."):
             response = requests.get("http://backend:8000/Employees/departments/")
             if response.status_code == 200:
@@ -162,6 +172,12 @@ with st.form("happy_hour_form", clear_on_submit=True):
                 
                 if response.status_code == 200:
                     st.success("Event created successfully!")
+                    rain(
+                        emoji="🎊🎉",  
+                        font_size=64,  
+                        falling_speed=8,  
+                        animation_length=2,  
+                         )
                 else:
                     error_message = response.json().get("detail", "An error occurred while creating the event.")
                     st.error(f"Failed to create event: {error_message}")
