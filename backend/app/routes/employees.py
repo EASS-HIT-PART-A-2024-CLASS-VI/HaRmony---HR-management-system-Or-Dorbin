@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from sqlalchemy.orm import Session
-from app import crud, schemas
+from app import crud, schemas, models
 from app.database import get_db
 import shutil
 from pathlib import Path
 from typing import List
 from app.models import Employee
+
+
 
 UPLOAD_DIR = Path("uploads/employees_pictures/")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
@@ -55,3 +57,11 @@ def get_departments(db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch departments: {str(e)}")
 
+
+@router.post("/", response_model=schemas.Employee)
+def create_employee(employee_data: schemas.EmployeeCreate, db: Session = Depends(get_db)):
+    db_employee = models.Employee(**employee_data.model_dump())
+    db.add(db_employee)
+    db.commit()
+    db.refresh(db_employee)
+    return db_employee

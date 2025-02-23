@@ -70,6 +70,7 @@ class PotentialRecruitBase(BaseModel):
     age: int
     role_description: Optional[str] = None
     description: Optional[str] = None
+    resume_path: Optional[str] = None 
 
 class PotentialRecruitCreate(PotentialRecruitBase):
     """

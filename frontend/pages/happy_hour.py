@@ -6,14 +6,37 @@ from streamlit_extras.let_it_rain import rain
 
 
 # Set page configuration
-st.set_page_config(page_title="Happy Hour", page_icon="🥂", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Happy Hour", page_icon="🥂", layout="wide", initial_sidebar_state="collapsed", menu_items={})
+st.markdown("""
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display:none;}
+        .appview-container .main .block-container {
+            padding-top: 0rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            padding-bottom: 1rem;
+        }
+        .stApp > header {
+            display: none;
+        }
+        .stApp {
+            margin-top: -80px;
+        }
+        section[data-testid="stSidebar"] {
+            display: none;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 if "rain_shown" not in st.session_state:
     rain(
         emoji="🍷🥂",  
         font_size=70,  
         falling_speed=7,  
-        animation_length=3,  
+        animation_length=0.7,  
     )
     st.session_state.rain_shown = True
 # Retrieve logged-in user
@@ -24,11 +47,12 @@ st.markdown(
     f"""
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px; background-color: #f7f7f7;">
         <div style="display: flex; gap: 20px; font-family: Calibri; font-size: 18px;">
-            <a href="http://localhost:8501/home" style="text-decoration: none; color: black;">Home</a>
-            <a href="http://localhost:8501/potential_recruits" style="text-decoration: none; color: black;">Potential recruits</a>
-            <a href="http://localhost:8501/happy_hour" style="text-decoration: none; color: black; background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Happy Hour</a>
-            <a href="http://localhost:8501/formation_days" style="text-decoration: none; color: black;">Formation days</a>
-            <a href="http://localhost:8501/workers_information" style="text-decoration: none; color: black;">Workers Information</a>
+            <a href="http://localhost:8501/home" target="_self" style="text-decoration: none; color: black;">Log out</a>
+            <a href="http://localhost:8501/potential_recruits" target="_self" style="text-decoration: none; color: black;">Potential recruits</a>
+            <a href="http://localhost:8501/happy_hour" target="_self" style="text-decoration: none; color: black; background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Happy Hour</a>
+            <a href="http://localhost:8501/formation_days" target="_self" style="text-decoration: none; color: black;">Formation days</a>
+            <a href="http://localhost:8501/workers_information" target="_self" style="text-decoration: none; color: black;">Workers Information</a>
+            <a href="http://localhost:8501/AI_assist" target="_self" style="text-decoration: none; color: black;">AI Assist</a>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: Calibri; font-size: 18px;">{logged_in_user}</span>

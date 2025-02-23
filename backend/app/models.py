@@ -27,6 +27,7 @@ class PotentialRecruit(Base):
     age = Column(Integer, nullable=False)
     role_description = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
+    resume_path = Column(String, nullable=True)
 
 class Employee(Base):
     __tablename__ = "employees"
@@ -43,7 +44,7 @@ class Employee(Base):
 
 class Event(Base):
     __tablename__ = "events"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, index=True)
     date = Column(Date, nullable=False)
     location = Column(String, nullable=True)

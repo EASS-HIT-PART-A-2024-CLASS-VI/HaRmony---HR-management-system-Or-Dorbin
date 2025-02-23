@@ -48,6 +48,22 @@ services:
     networks:
       - harmony_network
 
+
+  gemini_service:
+    build: ./gemini_service
+    container_name: harmony-gemini
+    environment:
+      - GOOGLE_API_KEY=${GEMINI_API_KEY}
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./gemini_service:/app
+    networks:
+      - harmony_network
+    restart: always
+
+
+
 volumes:
   postgres_data:
 

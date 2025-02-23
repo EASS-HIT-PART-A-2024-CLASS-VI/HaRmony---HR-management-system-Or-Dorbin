@@ -67,6 +67,16 @@ def delete_potential_recruit(db: Session, recruit_id: int):
         db.commit()
     return recruit
 
+def update_resume_path(db: Session, recruit_id: int, resume_path: str):
+    recruit = db.query(models.PotentialRecruit).filter(models.PotentialRecruit.id == recruit_id).first()
+    if recruit:
+        recruit.resume_path = resume_path
+        db.commit()
+        db.refresh(recruit)
+        return recruit
+    return None
+
+
 def draw_employees(db: Session, department: str, num_employees: int):
     employees = db.query(Employee).filter(Employee.department == department).all()
     if len(employees) < num_employees:

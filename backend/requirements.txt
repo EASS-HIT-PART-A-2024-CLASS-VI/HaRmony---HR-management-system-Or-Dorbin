@@ -5,3 +5,8 @@ psycopg2-binary
 pydantic
 uvicorn
 python-multipart
+pytest
+httpx
+alembic
+python-multipart
+requests

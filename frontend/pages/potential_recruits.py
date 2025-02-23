@@ -3,14 +3,55 @@ import streamlit as st
 import datetime
 
 
+
 # Set page configuration
-st.set_page_config(page_title="Potential Recruits",page_icon="🗣️​", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Potential Recruits",page_icon="🗣️​", layout="wide", initial_sidebar_state="collapsed", menu_items={})
+st.markdown("""
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display:none;}
+        .appview-container .main .block-container {
+            padding-top: 0rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            padding-bottom: 1rem;
+        }
+        .stApp > header {
+            display: none;
+        }
+        .stApp {
+            margin-top: -80px;
+        }
+        section[data-testid="stSidebar"] {
+            display: none;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-
-# Check if the user is logged in
 
 # Retrieve logged-in user
 logged_in_user = st.session_state.get("logged_in_user", "USERNAME")
+
+def upload_resume(recruit_id, file):
+    files = {"file": file}
+    response = requests.post(f"http://backend:8000/potential_recruits/{recruit_id}/upload_resume/", files=files)
+    if response.status_code == 200:
+        st.success("🏆 Resume uploaded successfully!")
+    else:
+        st.error("❌ Failed to upload resume.")
+
+
+def download_resume(recruit_id):
+    response = requests.get(f"http://backend:8000/potential_recruits/{recruit_id}/download_resume/")
+    if response.status_code == 200:
+        with open(f"resume_{recruit_id}.pdf", "wb") as f:
+            f.write(response.content)
+        st.success(f"💾 Resume for recruit {recruit_id} downloaded successfully!")
+    else:
+        st.error("❌ Failed to download resume.")
+
 
 
 # Top navigation bar
@@ -18,11 +59,12 @@ st.markdown(
     f"""
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px; background-color: #f7f7f7;">
         <div style="display: flex; gap: 20px; font-family: Calibri; font-size: 18px;">
-            <a href="http://localhost:8501/home" style="text-decoration: none; color: black;">Home</a>
-            <a href="http://localhost:8501/potential_recruits" style="text-decoration: none; color: black; background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Potential recruits</a>
-            <a href="http://localhost:8501/happy_hour" style="text-decoration: none; color: black;">Happy Hour</a>
-            <a href="http://localhost:8501/formation_days" style="text-decoration: none; color: black;">Formation days</a>
-            <a href="http://localhost:8501/workers_information" style="text-decoration: none; color: black;">Workers Information</a>
+            <a href="http://localhost:8501/home" target="_self" style="text-decoration: none; color: black;">Log out</a>
+            <a href="http://localhost:8501/potential_recruits" target="_self" style="text-decoration: none; color: black; background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Potential recruits</a>
+            <a href="http://localhost:8501/happy_hour" target="_self" style="text-decoration: none; color: black;">Happy Hour</a>
+            <a href="http://localhost:8501/formation_days" target="_self" style="text-decoration: none; color: black;">Formation days</a>
+            <a href="http://localhost:8501/workers_information" target="_self" style="text-decoration: none; color: black;">Workers Information</a>
+            <a href="http://localhost:8501/AI_assist" target="_self" style="text-decoration: none; color: black;">AI Assist</a>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: Calibri; font-size: 18px;">{logged_in_user}</span>
@@ -138,6 +180,7 @@ with st.expander("✅ Add a new recruit", expanded=False):
             age = st.number_input("Age", min_value=18, max_value=100, step=1)
             role_description = st.text_input("Role Description")
             description = st.text_area("Description")
+            resume_file = st.file_uploader("Upload Resume (PDF)", type="pdf")
             if st.form_submit_button("Add Recruit"):
                 payload = {
                     "first_name": first_name,
@@ -151,6 +194,9 @@ with st.expander("✅ Add a new recruit", expanded=False):
                 }
                 response = requests.post("http://backend:8000/potential_recruits/", json=payload)
                 if response.status_code == 200:
+                    recruit_id = response.json()["id"]
+                    if resume_file:
+                        upload_resume(recruit_id, resume_file)
                     st.success("Recruit added successfully!")
                     st.rerun()
                 else:
@@ -194,5 +240,23 @@ if recruits:
                 """,
                 unsafe_allow_html=True,
             )
+
+            # Toggle for Resume Actions
+            show_resume_options = st.toggle(f"📂 Slide me for Resume Options", key=f"resume_toggle_{recruit['id']}")
+
+            if show_resume_options:
+                uploaded_file = st.file_uploader(f"📤 Upload Resume", type="pdf", key=f"upload_{recruit['id']}")
+                if uploaded_file and st.button(f"📤 Upload {recruit['first_name']}'s Resume", key=f"btn_upload_{recruit['id']}"):
+                    upload_resume(recruit['id'], uploaded_file)
+
+                st.markdown(
+                    f'<a href="http://localhost:8000/potential_recruits/{recruit["id"]}/download_resume/" '
+                    f'download="resume_{recruit["id"]}.pdf" '
+                    f'style="text-decoration: none;">'
+                    f'<button style="background-color: #007bff; color: white; padding: 10px; border-radius: 5px; border: none; cursor: pointer;">'
+                    f'📥 Download {recruit["first_name"]}\'s Resume</button></a>',
+                    unsafe_allow_html=True
+                )
+
 else:
     st.warning("No recruits found.")

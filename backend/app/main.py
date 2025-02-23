@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app import models, schemas, crud
 from fastapi.staticfiles import StaticFiles
@@ -10,13 +11,12 @@ from app.routes import happy_hour
 from app.routes import employees
 from app.routes import formation_events
 import os
+import httpx
 
-
-# Create the database tables
-models.Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI application
 app = FastAPI()
+GEMINI_URL = "http://gemini_service:8002"
 assets_path = "/app/frontend/assets"
 # Include routers
 app.include_router(login_router, prefix="/auth", tags=["authentication"])
@@ -48,4 +48,11 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db, user)
 
 
+class ChatRequest(BaseModel):
+    prompt: str
 
+@app.post("/chat")
+async def chat(request: ChatRequest):
+    async with httpx.AsyncClient() as client:
+        response = await client.post(f"{GEMINI_URL}/chat", json={"prompt": request.prompt})
+        return response.json()
