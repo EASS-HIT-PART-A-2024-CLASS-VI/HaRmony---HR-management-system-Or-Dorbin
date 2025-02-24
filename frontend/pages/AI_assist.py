@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import time
 
 st.set_page_config(page_title="AI Assist", page_icon="🚀", layout="wide", initial_sidebar_state="collapsed", menu_items={})
 
@@ -88,6 +89,15 @@ user_query = st.text_input("💬 Ask me anything about HR, recruitment, company 
 
 if st.button("🚀 Send"):
     if user_query.strip():
+        with st.status("Thinking...", expanded=True) as status:
+            st.write("Looking for an answer to the question...")
+            time.sleep(2)
+            st.write("A suitable answer was found.")
+            time.sleep(1)
+            st.write("Showing an answer soon...")
+            time.sleep(1)
+            status.update(label="Process complete! Answer displayed to the user", state="complete", expanded=False)
+        
         response = chat_with_ai(user_query)
         if response and isinstance(response, dict) and "response" in response:
             st.markdown(f"<div style='background-color: #f1f1f1; padding: 10px; border-radius: 10px;'><strong>🧠 AI Response:</strong><br>{response['response']}</div>", unsafe_allow_html=True)
