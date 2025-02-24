@@ -1,12 +1,17 @@
 import requests
 import streamlit as st
+from streamlit_extras.switch_page_button import switch_page
 
 st.set_page_config(page_title="HaRmony",page_icon="🔐​", layout="wide", initial_sidebar_state="collapsed")
-# Logo and subheading
+
+if "logged_in_user" in st.session_state and st.session_state["logged_in_user"] != "Guest":
+    st.switch_page("pages/potential_recruits.py")
+
+
 st.markdown(
     """
     <div style='text-align: center;'>
-        <img src="http://localhost:8000/assets/HaRmonyLogo.png" alt="HaRmony Logo" width="200"/>
+        <img src="http://localhost:8000/assets/HaRmonyLogo.png" alt="HaRmony Logo" width="400"/>
         <h3 style='font-family: Calibri;'>log in to your account</h3>
     </div>
     """,
@@ -23,14 +28,13 @@ if st.button("Register"):
 if st.button("Login"):
     try:
         response = requests.post(
-            "http://backend:8000/auth/login/",  # backend service
+            "http://backend:8000/auth/login/",  
             json={"username": username, "password": password},
         )
         if response.status_code == 200:
-           st.success(f"Welcome, {username}!")
-            # Save logged-in user info in session state
-           st.session_state["logged_in_user"] = username
-           st.write(f"[Redirecting to Potential Recruits page...](http://localhost:8501/potential_recruits)")
+            st.success(f"Welcome, {username}!")
+            st.session_state["logged_in_user"] = username 
+            switch_page("potential_recruits")
 
         elif response.status_code == 400:
             st.error("Invalid username or password. Please try again.")

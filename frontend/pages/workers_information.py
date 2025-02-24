@@ -4,6 +4,7 @@ from datetime import datetime
 import streamlit.components.v1 as components
 from streamlit_extras.switch_page_button import switch_page
 import random
+import urllib.parse
 
 st.set_page_config(page_title="Employees", page_icon="👥", layout="wide", initial_sidebar_state="collapsed", menu_items={})
 st.markdown("""
@@ -31,6 +32,27 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# Retrieve query params to check if user is logged in
+query_params = st.query_params
+logged_in_user = query_params.get("logged_in_user", [None]) # Extract username
+
+if isinstance(logged_in_user, list) and len(logged_in_user) == 1:
+    logged_in_user = logged_in_user[0]  
+elif isinstance(logged_in_user, list):  
+    logged_in_user = "".join(logged_in_user)  
+
+# If query param exists, store it in session state
+if logged_in_user and logged_in_user != "None":
+    st.session_state["logged_in_user"] = logged_in_user
+else:
+    # Default to session state or Guest
+    logged_in_user = st.session_state.get("logged_in_user", "Guest")
+
+# Logout Handling
+if "logout" in query_params:
+    st.session_state["logged_in_user"] = "Guest"
+    switch_page("login")  # Redirect to login page
+
 def render_top_navbar(user):
     st.markdown(
         f"""
@@ -42,15 +64,15 @@ def render_top_navbar(user):
 
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px; background-color: #f7f7f7;">
             <div style="display: flex; gap: 20px; font-family: Calibri; font-size: 18px;">
-                <a href="http://localhost:8501/home" target="_self" style="text-decoration: none; color: black;">Log out</a>
-                <a href="http://localhost:8501/potential_recruits" target="_self" style="text-decoration: none; color: black;">Potential recruits</a>
-                <a href="http://localhost:8501/happy_hour" target="_self" style="text-decoration: none; color: black;">Happy Hour</a>
-                <a href="http://localhost:8501/formation_days" target="_self" style="text-decoration: none; color: black;">Formation days</a>
-                <a href="http://localhost:8501/workers_information" target="_self" style="text-decoration: none; color: black;background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Workers Information</a>
-                <a href="http://localhost:8501/AI_assist" target="_self" style="text-decoration: none; color: black;">AI Assist</a>
+                <a href="http://localhost:8501/home?logout=true" target="_self" style="text-decoration: none; color: black;">Log out</a>
+                <a href="http://localhost:8501/potential_recruits?logged_in_user={logged_in_user}" target="_self" style="text-decoration: none; color: black;">Potential recruits</a>
+                <a href="http://localhost:8501/happy_hour?logged_in_user={logged_in_user}" target="_self" style="text-decoration: none; color: black;">Happy Hour</a>
+                <a href="http://localhost:8501/formation_days?logged_in_user={logged_in_user}" target="_self" style="text-decoration: none; color: black;">Formation days</a>
+                <a href="http://localhost:8501/workers_information?logged_in_user={logged_in_user}" target="_self" style="text-decoration: none; color: black;background-color: #e0e0e0; padding: 5px 10px; border-radius: 5px;">Workers Information</a>
+                <a href="http://localhost:8501/AI_assist?logged_in_user={logged_in_user}" target="_self" style="text-decoration: none; color: black;">AI Assist</a>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-family: Calibri; font-size: 18px;">{user}</span>
+                <span style="font-family: Calibri; font-size: 18px;">{logged_in_user}</span>
                 <img src="http://localhost:8000/assets/usernamedisplay.png" alt="User Icon" width="30" style="border-radius: 50%;">
                 <img src="http://localhost:8000/assets/HaRmonyLogo.png" alt="HaRmony Logo" width="120">
             </div>
@@ -58,7 +80,6 @@ def render_top_navbar(user):
         """,
         unsafe_allow_html=True,
     )
-
 
 
 def render_title_image():

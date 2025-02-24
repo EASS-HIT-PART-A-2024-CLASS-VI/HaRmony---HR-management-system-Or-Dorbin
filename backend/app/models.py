@@ -5,7 +5,7 @@ from app.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     username = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     role = Column(String, nullable=True)  
@@ -18,7 +18,7 @@ class PotentialRecruit(Base):
     """
     __tablename__ = "potential_recruits"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100), nullable=False)
     phone_number = Column(String(15), nullable=False)
@@ -31,7 +31,7 @@ class PotentialRecruit(Base):
 
 class Employee(Base):
     __tablename__ = "employees"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     phone_number = Column(String, nullable=True)
@@ -53,7 +53,7 @@ class Event(Base):
 class ApprovedPlace(Base):
     __tablename__ = "approved_places"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     location = Column(String, nullable=False)
     description = Column(Text, nullable=True)
@@ -62,7 +62,7 @@ class ApprovedPlace(Base):
 class FormationEvent(Base):
     __tablename__ = "formation_events"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
     location = Column(String, nullable=True)

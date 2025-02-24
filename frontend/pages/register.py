@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from streamlit_extras.switch_page_button import switch_page
 
 st.set_page_config(page_title="HaRmony - Registration",page_icon="​📝​", layout="centered", initial_sidebar_state="collapsed")
 
@@ -36,7 +37,8 @@ if st.button("Continue"):
             )
             if response.status_code == 200:
                 result = response.json()
-                st.success(f"{result['message']}. [Click here to login](http://localhost:8501/login)")
+                st.success("Registration successful!")
+                switch_page("login")
             else:
                 st.error("An error occurred. Please try again.")
         except Exception as e:
