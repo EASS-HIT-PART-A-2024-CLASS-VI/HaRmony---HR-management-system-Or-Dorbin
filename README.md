@@ -79,7 +79,7 @@ The system is composed of **four microservices**:
 
 ## 🎥 Demo
 
-<a href="https://youtu.be/G4_XKZ06z4E" target="_blank">
+<a href="https://" target="_blank">
   <img 
     src=" " 
     alt="HaRmony Demo" 
