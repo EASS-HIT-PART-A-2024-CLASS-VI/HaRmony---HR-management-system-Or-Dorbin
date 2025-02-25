@@ -55,21 +55,22 @@ The system is composed of **four microservices**:
 
 ## 🚀 Features 
 ### **Employee Management**
-✅ View, search, and update employee records
-✅ Upload employee profile pictures 
-✅ Organize employees by department 
+ ✅ View, search, and update employee records
+ ✅ Upload employee profile pictures 
+ ✅ Organize employees by department 
   ### **Recruitment & Candidate Management** 
-✅ Store potential recruits' information 
-✅ Upload and download candidate resumes 
-✅ Search for recruits based on keywords 
-✅ Add and Remove potential recruits cards
+  ✅ Store potential recruits' information 
+  ✅ Upload and download candidate resumes 
+  ✅ Search for recruits based on keywords 
+  ✅ Add and Remove potential recruits cards
   ### **Company Events & Team Building**
-✅ Create and manage Happy Hour events 
-✅ Organize Formation Days with predefined locations 
-✅ Raffle employees for event participation
+  ✅ Create and manage Happy Hour events 
+  ✅ Organize Formation Days with predefined locations 
+  ✅ Raffle employees for event participation
    ### **AI-Powered HR Assistance**
-✅ Get HR-related AI recommendations via the *Gemini AI microservice*
-✅ Assist employees in HR queries with natural language processing.
+   ✅ Get HR-related AI recommendations via the *Gemini AI microservice*
+   ✅ Assist employees in HR queries with natural language processing.
+
 
 ## 🎥 Demo
 [![Watch the demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
