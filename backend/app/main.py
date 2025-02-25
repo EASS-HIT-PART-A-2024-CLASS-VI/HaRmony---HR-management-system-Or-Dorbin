@@ -13,6 +13,7 @@ from app.routes import formation_events
 import os
 import httpx
 
+models.Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI application
 app = FastAPI()

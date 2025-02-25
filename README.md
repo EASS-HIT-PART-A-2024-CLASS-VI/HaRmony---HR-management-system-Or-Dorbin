@@ -53,27 +53,39 @@ The system is composed of **four microservices**:
 -   **Docker Compose** – To orchestrate multi-container services.
 ---
 
-## 🚀 Features 
-### **Employee Management**
- ✅ View, search, and update employee records
- ✅ Upload employee profile pictures 
- ✅ Organize employees by department 
-  ### **Recruitment & Candidate Management** 
-  ✅ Store potential recruits' information 
-  ✅ Upload and download candidate resumes 
-  ✅ Search for recruits based on keywords 
-  ✅ Add and Remove potential recruits cards
-  ### **Company Events & Team Building**
-  ✅ Create and manage Happy Hour events 
-  ✅ Organize Formation Days with predefined locations 
-  ✅ Raffle employees for event participation
-   ### **AI-Powered HR Assistance**
-   ✅ Get HR-related AI recommendations via the *Gemini AI microservice*
-   ✅ Assist employees in HR queries with natural language processing.
+## 🚀 Features  
 
+### 🏢 Employee Management  
+- ✅ **View, search, and update** employee records  
+- ✅ **Upload** employee profile pictures for a modern UI  
+- ✅ **Organize employees** by department  
+
+### 🎯 Recruitment & Candidate Management  
+- ✅ **Store** potential recruits' information  
+- ✅ **Upload & download** candidate resumes  
+- ✅ **Search** for recruits based on keywords  
+- ✅ **Add & remove** potential recruit cards dynamically  
+
+### 🎉 Company Events & Team Building  
+- ✅ **Create & manage** Happy Hour events with ease  
+- ✅ **Organize** Formation Days with **predefined locations**  
+- ✅ **Raffle employees** for event participation  
+
+### 🤖 AI-Powered HR Assistance  
+- ✅ **Receive HR recommendations** via the **Gemini AI microservice**  
+- ✅ **Assist employees** with HR queries using **natural language processing**  
+
+---
 
 ## 🎥 Demo
-[![Watch the demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+<a href="https://youtu.be/G4_XKZ06z4E" target="_blank">
+  <img 
+    src=" " 
+    alt="HaRmony Demo" 
+    width="100%"
+  />
+</a>
 
 ---
 
