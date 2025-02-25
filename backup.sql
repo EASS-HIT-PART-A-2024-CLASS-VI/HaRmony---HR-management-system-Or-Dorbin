@@ -188,7 +188,8 @@ CREATE TABLE public.potential_recruits (
     date_of_birth date NOT NULL,
     age integer NOT NULL,
     role_description text,
-    description text
+    description text,
+    resume_path character varying(255)
 );
 
 
@@ -380,26 +381,26 @@ COPY public.formation_events (id, name, date, location, organizer, description, 
 -- Data for Name: potential_recruits; Type: TABLE DATA; Schema: public; Owner: harmony_user
 --
 
-COPY public.potential_recruits (id, first_name, last_name, phone_number, email, date_of_birth, age, role_description, description) FROM stdin;
-1	Michael	Nathan Dorbin	052-1223212	michaelnathan@gmail.com	2002-04-28	22	QA	Previously worked in software development...
-3	Shira	Steinbuch	053-7655678	shirast@gmail.com	1999-05-13	26	Product Manager	Worked at the company "Vardim" before its acquisition...
-4	Gerry	Mandelbaum	052-5381648	gerry@gmail.com	1981-03-07	54	Team Lead Developer	Over 30 years of experience in software development. Previously a product manager, improved the previous company by 17%, and sold several shares. Self-taught software development on UDEMY until becoming a team leader.
-5	Mila	Kunis	053-7876567	millak@gmail.com	2000-01-01	25	Head of Fun	Responsible for company bonding events in her previous role, including communication with external vendors and ensuring employee satisfaction.
-6	Lital	Avraham	08-7655678	litalav@gmail.com	2001-01-04	24	Helpdesk	4 years of experience in IT support at Microsoft. Completed CCNA and networking courses. Formerly a network administrator in the military.
-9	Hodaya	Yaakov	052-2764822	hodayaya@gmail.com	2000-06-26	25	Recruiter	Recruited employees for companies like Dell and Lenovo, hiring around 12,000 employees in 6 years. Received prior recommendations and impressive CVs sent by email.
-11	reef	malka	0521112221	reefmalka@gmail.com	2000-01-06	24	marketing	Results-oriented and highly motivated sales/marketing professional with a proven track record of success. Passionate about building strong client relationships and exceeding targets. Strong communication and interpersonal skills with a focus on customer satisfaction.
-44	shahar	hasson	0555554443	shaharh@gmail.com	2015-01-12	31	PMO	Highly motivated and results-oriented PMO with 10+ years of experience in managing and supporting complex projects across various industries. Proven ability to drive project success through effective planning, execution, and monitoring. Expertise in Agile methodologies, risk management, resource allocation, project portfolio management, tools like Jira/Asana. Seeking a challenging role in a dynamic and innovative environment.
-45	liran	danino	052-333999999	lirand@gmail.com	2015-01-27	28	Software Engineer	"Highly motivated and results-oriented Software Engineer with a passion for developing cutting-edge AI solutions. Proven ability to design and implement robust and scalable software systems. Eager to contribute to a dynamic and innovative team and make a significant impact on the future of AI."
-46	avi	toledano	0534432498	avit@gmail.com	2015-05-21	27	\N	Highly motivated and results-driven QA with a strong passion for sustainability, innovation, customer success. Proven ability to excel in. Seeking a challenging role in a collaborative environment where I can contribute to a company that makes a positive impact
-47	liav	bento	0529997775	liavb@gmail.com	2015-04-23	29	Senior Product Marketing Manager	Bachelor's degree in marketing, business, or a related field. 5+ years of experience in product marketing. Proven track record of successfully launching and growing products. Strong analytical skills and ability to leverage data to drive decision-making. Excellent written and verbal communication skills. Experience working in a fast-paced, dynamic environment.
-48	tali	simhayev	05487678521	talisi@gmail.com	2015-11-30	27	project manager	Highly motivated and results-oriented Project Manager with a proven track record of successfully delivering projects on time and within budget. Expertise in Agile methodologies, risk management, and stakeholder communication. Proven ability to lead and motivate cross-functional teams.
-69	sapir	heba	055-56765454	sapirhs@gmail.com	2015-10-15	22	project manager	Enthusiastic and collaborative Project Manager with a passion for driving project success. Strong communication and interpersonal skills with a proven ability to build and maintain strong relationships with stakeholders. Highly organized and detail-oriented with a focus on achieving project objectives.
-70	noa	kirel	0524445556	noak@gmail.com	2015-08-19	23	project manager	Results-driven Project Manager with a strong focus on delivering high-quality outcomes. Proven ability to identify and mitigate project risks, optimize resource allocation, and ensure project success. Seeking a challenging role in a dynamic and innovative environment.
-72	ayelet	shahar	0813547387	ayelettt@gamil.com	2025-01-06	23	fullstack developer	Studied computer science at Tal Institute in Jerusalem and graduated with honors, including Dean’s Award. 5 years of software development experience at Checkpoint.
-73	lital	ben yaakov	05212312343	litalbeny@gmail.com	2001-01-04	24	IT support - helpdesk	"Results-oriented Helpdesk Support Specialist with a proven track record of resolving user issues quickly and efficiently. Contributed to improving user satisfaction and reducing helpdesk ticket volume. Strong interpersonal skills and a positive attitude."
-75	osher	cohen	0746734563475	osherco@gmail.com	1998-09-15	27	Help Desk	"Enthusiastic and patient Helpdesk Support Specialist with a strong customer service orientation. Proven ability to effectively communicate technical information to users with varying levels of technical expertise. Eager to learn new technologies and provide exceptional support to end-users."
-76	shlomi	saranga	0533746533	shlomis@gmail.com	1992-02-11	33	PMO	30 years old PMO with several years of experiance in the genra.
-77	shay	dover	06524547859	shays@gmail.com	2000-05-24	21	Software Engineer	description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test
+COPY public.potential_recruits (id, first_name, last_name, phone_number, email, date_of_birth, age, role_description, description, resume_path) FROM stdin;
+1	Michael	Nathan Dorbin	052-1223212	michaelnathan@gmail.com	2002-04-28	22	QA	Previously worked in software development...	\N
+3	Shira	Steinbuch	053-7655678	shirast@gmail.com	1999-05-13	26	Product Manager	Worked at the company "Vardim" before its acquisition...	\N
+4	Gerry	Mandelbaum	052-5381648	gerry@gmail.com	1981-03-07	54	Team Lead Developer	Over 30 years of experience in software development. Previously a product manager, improved the previous company by 17%, and sold several shares. Self-taught software development on UDEMY until becoming a team leader.	\N
+5	Mila	Kunis	053-7876567	millak@gmail.com	2000-01-01	25	Head of Fun	Responsible for company bonding events in her previous role, including communication with external vendors and ensuring employee satisfaction.	\N
+6	Lital	Avraham	08-7655678	litalav@gmail.com	2001-01-04	24	Helpdesk	4 years of experience in IT support at Microsoft. Completed CCNA and networking courses. Formerly a network administrator in the military.	\N
+9	Hodaya	Yaakov	052-2764822	hodayaya@gmail.com	2000-06-26	25	Recruiter	Recruited employees for companies like Dell and Lenovo, hiring around 12,000 employees in 6 years. Received prior recommendations and impressive CVs sent by email.	\N
+11	reef	malka	0521112221	reefmalka@gmail.com	2000-01-06	24	marketing	Results-oriented and highly motivated sales/marketing professional with a proven track record of success. Passionate about building strong client relationships and exceeding targets. Strong communication and interpersonal skills with a focus on customer satisfaction.	\N
+44	shahar	hasson	0555554443	shaharh@gmail.com	2015-01-12	31	PMO	Highly motivated and results-oriented PMO with 10+ years of experience in managing and supporting complex projects across various industries. Proven ability to drive project success through effective planning, execution, and monitoring. Expertise in Agile methodologies, risk management, resource allocation, project portfolio management, tools like Jira/Asana. Seeking a challenging role in a dynamic and innovative environment.	\N
+45	liran	danino	052-333999999	lirand@gmail.com	2015-01-27	28	Software Engineer	"Highly motivated and results-oriented Software Engineer with a passion for developing cutting-edge AI solutions. Proven ability to design and implement robust and scalable software systems. Eager to contribute to a dynamic and innovative team and make a significant impact on the future of AI."	\N
+46	avi	toledano	0534432498	avit@gmail.com	2015-05-21	27	\N	Highly motivated and results-driven QA with a strong passion for sustainability, innovation, customer success. Proven ability to excel in. Seeking a challenging role in a collaborative environment where I can contribute to a company that makes a positive impact	\N
+47	liav	bento	0529997775	liavb@gmail.com	2015-04-23	29	Senior Product Marketing Manager	Bachelor's degree in marketing, business, or a related field. 5+ years of experience in product marketing. Proven track record of successfully launching and growing products. Strong analytical skills and ability to leverage data to drive decision-making. Excellent written and verbal communication skills. Experience working in a fast-paced, dynamic environment.	\N
+48	tali	simhayev	05487678521	talisi@gmail.com	2015-11-30	27	project manager	Highly motivated and results-oriented Project Manager with a proven track record of successfully delivering projects on time and within budget. Expertise in Agile methodologies, risk management, and stakeholder communication. Proven ability to lead and motivate cross-functional teams.	\N
+69	sapir	heba	055-56765454	sapirhs@gmail.com	2015-10-15	22	project manager	Enthusiastic and collaborative Project Manager with a passion for driving project success. Strong communication and interpersonal skills with a proven ability to build and maintain strong relationships with stakeholders. Highly organized and detail-oriented with a focus on achieving project objectives.	\N
+70	noa	kirel	0524445556	noak@gmail.com	2015-08-19	23	project manager	Results-driven Project Manager with a strong focus on delivering high-quality outcomes. Proven ability to identify and mitigate project risks, optimize resource allocation, and ensure project success. Seeking a challenging role in a dynamic and innovative environment.	\N
+72	ayelet	shahar	0813547387	ayelettt@gamil.com	2025-01-06	23	fullstack developer	Studied computer science at Tal Institute in Jerusalem and graduated with honors, including Dean’s Award. 5 years of software development experience at Checkpoint.	\N
+73	lital	ben yaakov	05212312343	litalbeny@gmail.com	2001-01-04	24	IT support - helpdesk	"Results-oriented Helpdesk Support Specialist with a proven track record of resolving user issues quickly and efficiently. Contributed to improving user satisfaction and reducing helpdesk ticket volume. Strong interpersonal skills and a positive attitude."	\N
+75	osher	cohen	0746734563475	osherco@gmail.com	1998-09-15	27	Help Desk	"Enthusiastic and patient Helpdesk Support Specialist with a strong customer service orientation. Proven ability to effectively communicate technical information to users with varying levels of technical expertise. Eager to learn new technologies and provide exceptional support to end-users."	\N
+76	shlomi	saranga	0533746533	shlomis@gmail.com	1992-02-11	33	PMO	30 years old PMO with several years of experiance in the genra.	\N
+77	shay	dover	06524547859	shays@gmail.com	2000-05-24	21	Software Engineer	description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test	\N
 \.
 
 
@@ -411,6 +412,8 @@ COPY public.users (id, username, password, role, company) FROM stdin;
 1	harmony_user	password	test	test
 2	ordo	Aa123456	system administrator	itTech
 3	miriy	Aa123456	head of fun	confetti
+4	test5	1	1	1
+5	hanoh	1	1	1
 \.
 
 
@@ -418,42 +421,42 @@ COPY public.users (id, username, password, role, company) FROM stdin;
 -- Name: approved_places_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.approved_places_id_seq', 1, false);
+SELECT pg_catalog.setval('public.approved_places_id_seq', 4, false);
 
 
 --
 -- Name: employees_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.employees_id_seq', 1, false);
+SELECT pg_catalog.setval('public.employees_id_seq', 32, false);
 
 
 --
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.events_id_seq', 1, false);
+SELECT pg_catalog.setval('public.events_id_seq', 8, false);
 
 
 --
 -- Name: formation_events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.formation_events_id_seq', 1, false);
+SELECT pg_catalog.setval('public.formation_events_id_seq', 9, false);
 
 
 --
 -- Name: potential_recruits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.potential_recruits_id_seq', 1, false);
+SELECT pg_catalog.setval('public.potential_recruits_id_seq', 78, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 5, true);
 
 
 --

@@ -66,3 +66,12 @@ SELECT pg_catalog.setval('employees_id_seq', (SELECT COALESCE(MAX(id), 1) FROM e
 SELECT pg_catalog.setval('events_id_seq', (SELECT COALESCE(MAX(id), 1) FROM events) + 1, false);
 SELECT pg_catalog.setval('approved_places_id_seq', (SELECT COALESCE(MAX(id), 1) FROM approved_places) + 1, false);
 SELECT pg_catalog.setval('formation_events_id_seq', (SELECT COALESCE(MAX(id), 1) FROM formation_events) + 1, false);
+
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'potential_recruits') THEN
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'potential_recruits' AND column_name = 'resume_path') THEN
+            ALTER TABLE potential_recruits ADD COLUMN resume_path VARCHAR(255);
+        END IF;
+    END IF;
+END $$;
