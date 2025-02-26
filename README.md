@@ -174,7 +174,7 @@ The system is composed of **four microservices**:
 ## 🏗️ **Setting up the Project**
 Clone the repository:
 
-    git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-VI/HaRmony---HR-management-system-Or-Dorbin.git
+    git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-VI/HaRmony---HR-management-system-Or-Dorbin.git
     cd HaRmony---HR-management-system-Or-Dorbin
 
 
