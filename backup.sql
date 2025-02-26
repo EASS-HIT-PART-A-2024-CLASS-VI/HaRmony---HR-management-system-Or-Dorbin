@@ -16,6 +16,27 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: harmony_db; Type: DATABASE; Schema: -; Owner: harmony_user
+--
+
+
+
+ALTER DATABASE harmony_db OWNER TO harmony_user;
+
+\connect harmony_db
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -304,6 +325,7 @@ COPY public.approved_places (id, name, location, description, website_url) FROM 
 1	plug in kareoke	Tel Aviv	kareoke bar in tel aviv that a lot of workers enjoyed previously	https://www.plugin.co.il/
 2	Miki Shemo cakes	herzeliah arena mall	A master class with pastry chef Mickey Shemu...	https://www.4chef.co.il/...
 3	Laser Arena Modiin	Blood of the Maccabees Modi'in 36	Laser Arena Modiin is the largest and most diverse experience complex in Israel...	https://www.israel-laser.co.il/about/
+4	example	example	example	example
 \.
 
 
@@ -358,6 +380,7 @@ COPY public.events (id, name, date, location, organizer) FROM stdin;
 5	Test Event	2025-01-15	Tel Aviv	John Doe
 6	valentine's day happy hour!	2026-02-14	Open conference room in the courtyard	Liat from HR
 7	purim celebration!	2025-03-14	lobby - HR	Or Dorbin
+8	passover	2025-02-25	lobby	shimshon
 \.
 
 
@@ -374,6 +397,7 @@ COPY public.formation_events (id, name, date, location, organizer, description, 
 6	Dor beach bonding trip 2023	2023-11-04	Dor beach	Noga from HR	All of the comapnys employees went to the bonding trip and enjoyes the beautiful view and a lot of fun activities!	Formation	\N
 7	test	2025-05-20	test	test	test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test v	Formation	\N
 8	lazer tag for Sales department	2025-05-21	Laser Arena Modiin	HR	Unleash your inner sales warrior at Laser Arena Modiin! This high-energy team-building event will challenge your teamwork, communication, and strategic thinking. Navigate the arena's challenging maze, outmaneuver your opponents, and celebrate your victories with your team. Register now for an unforgettable experience that will boost morale and strengthen your sales force.	Formation	https://www.laser-city.co.il/wp-content/uploads/2024/08/z02.jpg
+9	example	2025-02-25	example	example	example	Formation	
 \.
 
 
@@ -401,6 +425,8 @@ COPY public.potential_recruits (id, first_name, last_name, phone_number, email, 
 75	osher	cohen	0746734563475	osherco@gmail.com	1998-09-15	27	Help Desk	"Enthusiastic and patient Helpdesk Support Specialist with a strong customer service orientation. Proven ability to effectively communicate technical information to users with varying levels of technical expertise. Eager to learn new technologies and provide exceptional support to end-users."	\N
 76	shlomi	saranga	0533746533	shlomis@gmail.com	1992-02-11	33	PMO	30 years old PMO with several years of experiance in the genra.	\N
 77	shay	dover	06524547859	shays@gmail.com	2000-05-24	21	Software Engineer	description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test description fo test	\N
+134	liel	avta	23232323	liel@gmail.com	2025-02-25	23	QA	no desc	\N
+131	sheli	mimon	222222222	sheli@mail	1995-02-25	30	test	test	http://localhost:8000/uploads/resumes/79.pdf
 \.
 
 
@@ -421,7 +447,7 @@ COPY public.users (id, username, password, role, company) FROM stdin;
 -- Name: approved_places_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.approved_places_id_seq', 4, false);
+SELECT pg_catalog.setval('public.approved_places_id_seq', 4, true);
 
 
 --
@@ -435,21 +461,21 @@ SELECT pg_catalog.setval('public.employees_id_seq', 32, false);
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.events_id_seq', 8, false);
+SELECT pg_catalog.setval('public.events_id_seq', 8, true);
 
 
 --
 -- Name: formation_events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.formation_events_id_seq', 9, false);
+SELECT pg_catalog.setval('public.formation_events_id_seq', 9, true);
 
 
 --
 -- Name: potential_recruits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: harmony_user
 --
 
-SELECT pg_catalog.setval('public.potential_recruits_id_seq', 78, false);
+SELECT pg_catalog.setval('public.potential_recruits_id_seq', 137, true);
 
 
 --
