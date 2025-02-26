@@ -184,7 +184,7 @@ To enable **Google Gemini AI**, you must create an API key from [Google AI Studi
 
 Then, create a `.env` file in the root directory and fill it with:
 
-    GEMINI_API_KEY=<YOUR_API_KEY>'
+    GEMINI_API_KEY=<YOUR_API_KEY>
 
 Ensure `.env` is **excluded from version control** by adding it to `.gitignore`.
 
